@@ -121,27 +121,67 @@
       <section id="download" class="section download">
         <h2>Download free</h2>
         <p class="section-lede">
-          Get checkSource.ai for Chrome on any computer. Worldwide, free forever for this release.
+          Get checkSource.ai for Chrome on Mac or Windows. Free worldwide — works right after install.
         </p>
-        <a class="btn primary large" href="download/checkSource.ai-extension.zip" download
-          >Download extension (.zip)</a
-        >
-        <p class="fine">Compatible with Google Chrome and other Chromium browsers.</p>
+        <button type="button" class="btn primary large" id="downloadBtn">
+          Download for Chrome (.zip)
+        </button>
+        <p class="fine">No account setup required. Compatible with Google Chrome on Mac &amp; Windows.</p>
       </section>
 
       <section id="install" class="section install">
-        <h2>Install in Chrome</h2>
-        <ol class="install-steps">
-          <li>Download and unzip <code>checkSource.ai-extension.zip</code>.</li>
-          <li>Open <code>chrome://extensions</code> in Chrome.</li>
-          <li>Turn on <strong>Developer mode</strong> (top right).</li>
-          <li>Click <strong>Load unpacked</strong> and select the unzipped folder.</li>
-          <li>Pin checkSource.ai from the puzzle icon — then hover any image to start.</li>
-        </ol>
-        <p class="fine">
-          Chrome Web Store listing coming soon. Until then, Load unpacked is the free public install path.
-        </p>
+        <h2>Install guide</h2>
+        <p class="section-lede">Same Chrome steps on every computer — unzip differs slightly by OS.</p>
+
+        <div class="os-tabs" role="tablist">
+          <button type="button" class="os-tab is-active" data-os="mac" role="tab" aria-selected="true">
+            Mac
+          </button>
+          <button type="button" class="os-tab" data-os="win" role="tab" aria-selected="false">
+            Windows
+          </button>
+        </div>
+
+        <div class="os-panel is-active" data-panel="mac">
+          <ol class="install-steps">
+            <li>Click <strong>Download for Chrome</strong> and save the zip.</li>
+            <li>In <strong>Finder</strong>, double-click the zip (or right-click → Open With → Archive Utility).</li>
+            <li>Open Chrome and go to <code>chrome://extensions</code>.</li>
+            <li>Turn on <strong>Developer mode</strong> (top right).</li>
+            <li>Click <strong>Load unpacked</strong> → select the unzipped <code>checkSource.ai</code> folder.</li>
+            <li>Pin the extension from the puzzle icon, then hover any image.</li>
+          </ol>
+        </div>
+
+        <div class="os-panel" data-panel="win" hidden>
+          <ol class="install-steps">
+            <li>Click <strong>Download for Chrome</strong> and save the zip.</li>
+            <li>In <strong>File Explorer</strong>, right-click the zip → <strong>Extract All…</strong> → Extract.</li>
+            <li>Open Chrome and go to <code>chrome://extensions</code>.</li>
+            <li>Turn on <strong>Developer mode</strong> (top right).</li>
+            <li>Click <strong>Load unpacked</strong> → select the extracted folder (the one with <code>manifest.json</code>).</li>
+            <li>Pin the extension from the puzzle icon, then hover any image.</li>
+          </ol>
+        </div>
       </section>
+
+      <!-- Next-steps modal after download -->
+      <div class="modal" id="nextModal" hidden>
+        <div class="modal-backdrop" data-close></div>
+        <div class="modal-card" role="dialog" aria-labelledby="nextTitle">
+          <button type="button" class="modal-x" data-close aria-label="Close">×</button>
+          <p class="eyebrow">Next steps</p>
+          <h2 id="nextTitle">Finish setup in Chrome</h2>
+          <ol class="install-steps compact">
+            <li><strong>Unzip</strong> the download (Mac: double-click · Windows: Extract All).</li>
+            <li>Open <code>chrome://extensions</code> and enable <strong>Developer mode</strong>.</li>
+            <li>Click <strong>Load unpacked</strong> and choose the unzipped folder.</li>
+            <li>When Chrome opens the welcome page, pin checkSource.ai and hover an image.</li>
+          </ol>
+          <p class="fine">Works the same on Mac and Windows. No token or account needed.</p>
+          <button type="button" class="btn primary" data-close>Got it</button>
+        </div>
+      </div>
 
       <section class="section honesty">
         <h2>Be clear with others</h2>
@@ -163,6 +203,46 @@
 
     <script>
       document.getElementById("y").textContent = new Date().getFullYear();
+
+      // OS tabs
+      const tabs = document.querySelectorAll(".os-tab");
+      const panels = document.querySelectorAll(".os-panel");
+      tabs.forEach((tab) => {
+        tab.addEventListener("click", () => {
+          const os = tab.dataset.os;
+          tabs.forEach((t) => {
+            t.classList.toggle("is-active", t === tab);
+            t.setAttribute("aria-selected", t === tab ? "true" : "false");
+          });
+          panels.forEach((p) => {
+            const on = p.dataset.panel === os;
+            p.classList.toggle("is-active", on);
+            p.hidden = !on;
+          });
+        });
+      });
+
+      // Prefill OS tab
+      const isWin = /Win/i.test(navigator.platform) || /Windows/i.test(navigator.userAgent);
+      if (isWin) document.querySelector('.os-tab[data-os="win"]')?.click();
+
+      // Download + next-steps modal
+      const modal = document.getElementById("nextModal");
+      const downloadBtn = document.getElementById("downloadBtn");
+      downloadBtn?.addEventListener("click", () => {
+        const a = document.createElement("a");
+        a.href = "download/checkSource.ai-extension.zip";
+        a.download = "checkSource.ai-extension.zip";
+        document.body.appendChild(a);
+        a.click();
+        a.remove();
+        modal.hidden = false;
+      });
+      modal?.querySelectorAll("[data-close]").forEach((el) => {
+        el.addEventListener("click", () => {
+          modal.hidden = true;
+        });
+      });
     </script>
   </body>
 </html>

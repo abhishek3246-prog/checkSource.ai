@@ -11,36 +11,16 @@
       <img class="logo" src="icons/icon48.png" alt="" width="36" height="36" />
       <div>
         <h1>checkSource.ai</h1>
-        <p class="tagline">Hover images · select text</p>
+        <p class="tagline">Ready out of the box</p>
       </div>
     </header>
 
     <section class="card">
-      <label class="toggle">
+      <p class="status ok" id="readyStatus">Works instantly — no setup required.</p>
+      <label class="toggle" style="margin-top: 10px">
         <input type="checkbox" id="autoDetect" checked />
         <span>Auto-scan images on hover</span>
       </label>
-      <p class="hint">Shows a report card next to the image. Page images are never modified.</p>
-    </section>
-
-    <section class="card">
-      <label class="field-label" for="hfToken">Hugging Face token</label>
-      <div class="row">
-        <input
-          type="password"
-          id="hfToken"
-          placeholder="hf_…"
-          autocomplete="off"
-          spellcheck="false"
-        />
-        <button type="button" id="saveToken" class="btn primary">Save</button>
-      </div>
-      <p class="hint">
-        <a href="https://huggingface.co/settings/tokens" target="_blank" rel="noreferrer"
-          >Get a token</a
-        >
-      </p>
-      <p id="tokenStatus" class="status" aria-live="polite"></p>
     </section>
 
     <section class="card">
@@ -52,8 +32,27 @@
       <div id="result" class="result-host" hidden></div>
     </section>
 
+    <section class="card collapsed">
+      <details>
+        <summary>Advanced (optional)</summary>
+        <label class="field-label" for="hfToken" style="margin-top: 10px">Personal API token</label>
+        <div class="row">
+          <input
+            type="password"
+            id="hfToken"
+            placeholder="Optional override"
+            autocomplete="off"
+            spellcheck="false"
+          />
+          <button type="button" id="saveToken" class="btn primary">Save</button>
+        </div>
+        <p class="hint">Leave empty to use the built-in free service.</p>
+        <p id="tokenStatus" class="status" aria-live="polite"></p>
+      </details>
+    </section>
+
     <footer class="footer">
-      Tip: select any text on a page → click <strong>Check text</strong>
+      Tip: select text on a page → <strong>Check text</strong> · Developed by Abhi
     </footer>
 
     <script src="lib/report.js"></script>

@@ -12,7 +12,8 @@ const MODELS = [MODEL_PRIMARY, MODEL_SECONDARY];
 
 const AI_THRESHOLD = 0.5;
 const REAL_CONFIDENT = 0.2; // primary Fake score below this = confident real
-const CACHE_VERSION = "v6";
+const CACHE_VERSION = "v7";
+const CLOUD_API = "https://checksource-ai.vercel.app/api/classify";
 
 function modelUrl(modelId, legacy = false) {
   if (legacy) return `https://api-inference.huggingface.co/models/${modelId}`;
@@ -25,7 +26,7 @@ const CACHE_TTL_MS = 60 * 60 * 1000;
 const MAX_IMAGE_BYTES = 5 * 1024 * 1024;
 const INFER_MAX_EDGE = 384; // model native ~224; smaller = faster, enough for vit
 
-chrome.runtime.onInstalled.addListener(() => {
+chrome.runtime.onInstalled.addListener((details) => {
   chrome.contextMenus.removeAll(() => {
     chrome.contextMenus.create({
       id: "checksource-analyze-image",
@@ -42,6 +43,10 @@ chrome.runtime.onInstalled.addListener(() => {
   chrome.storage.sync.get({ autoDetect: true }, (cfg) => {
     if (cfg.autoDetect === undefined) chrome.storage.sync.set({ autoDetect: true });
   });
+
+  if (details.reason === "install") {
+    chrome.tabs.create({ url: chrome.runtime.getURL("welcome.html") });
+  }
 });
 
 chrome.contextMenus.onClicked.addListener(async (info, tab) => {
@@ -96,6 +101,7 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
     chrome.storage.sync.get(["hfToken", "autoDetect"], (cfg) => {
       sendResponse({
         hasToken: Boolean(cfg.hfToken),
+        cloudReady: true,
         autoDetect: cfg.autoDetect !== false,
       });
     });
@@ -229,13 +235,6 @@ async function runAnalyze(src, pageUrl, cacheKey) {
   }
 
   const { hfToken } = await chrome.storage.sync.get({ hfToken: "" });
-  if (!hfToken) {
-    return buildAuthenticityReport({
-      src,
-      pageUrl,
-      error: "Add your Hugging Face token in the extension popup.",
-    });
-  }
 
   let imageBytes;
   try {
@@ -251,11 +250,16 @@ async function runAnalyze(src, pageUrl, cacheKey) {
   // Metadata from original bytes (fast, local)
   const signals = probeImageSignals(imageBytes, src);
 
-  // Smaller JPEG for faster HF upload/inference
+  // Smaller JPEG for faster inference
   const inferBytes = await downsampleForInference(imageBytes);
 
-  // Ensemble: agreement-aware blend (never let one alarmist model dominate)
-  const hf = await runEnsemble(inferBytes, hfToken);
+  // Default: cloud proxy (no user token). Optional personal token still supported.
+  let hf;
+  if (hfToken) {
+    hf = await runEnsemble(inferBytes, hfToken);
+  } else {
+    hf = await classifyViaCloud(inferBytes);
+  }
 
   if (hf?.error && hf.score == null) {
     return buildAuthenticityReport({ src, pageUrl, signals, error: hf.error });
@@ -270,6 +274,37 @@ async function runAnalyze(src, pageUrl, cacheKey) {
     /* ignore */
   }
   return result;
+}
+
+async function classifyViaCloud(inferBytes) {
+  try {
+    const imageBase64 = arrayBufferToBase64(inferBytes);
+    const response = await fetch(CLOUD_API, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ imageBase64 }),
+    });
+    if (!response.ok) {
+      const errBody = await response.json().catch(() => ({}));
+      return {
+        error: errBody.error || `Cloud analyze failed (${response.status})`,
+        score: null,
+      };
+    }
+    return await response.json();
+  } catch (err) {
+    return { error: err.message || "Cloud analyze unavailable", score: null };
+  }
+}
+
+function arrayBufferToBase64(buffer) {
+  const bytes = new Uint8Array(buffer);
+  const chunk = 0x8000;
+  let binary = "";
+  for (let i = 0; i < bytes.length; i += chunk) {
+    binary += String.fromCharCode(...bytes.subarray(i, i + chunk));
+  }
+  return btoa(binary);
 }
 
 async function runEnsemble(inferBytes, token) {

@@ -29,11 +29,11 @@ document.addEventListener("DOMContentLoaded", async () => {
 function setTokenStatus(hasToken, justSaved = false) {
   const el = $("tokenStatus");
   if (!hasToken) {
-    el.textContent = "No token saved — AI scores need a token.";
-    el.className = "status err";
+    el.textContent = "Using free built-in analysis.";
+    el.className = "status ok";
     return;
   }
-  el.textContent = justSaved ? "Token saved." : "Token on file.";
+  el.textContent = justSaved ? "Personal token saved (overrides cloud)." : "Personal token on file.";
   el.className = "status ok";
 }
 

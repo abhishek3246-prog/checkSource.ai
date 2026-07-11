@@ -1,8 +1,8 @@
 {
   "manifest_version": 3,
   "name": "checkSource.ai",
-  "version": "1.6.0",
-  "description": "Detect AI vs original images from model ensemble — publisher trust does not override image analysis.",
+  "version": "1.7.0",
+  "description": "Hover any image to check if it looks original or AI-made. Free for Chrome on Mac and Windows.",
   "permissions": [
     "storage",
     "contextMenus",
@@ -11,6 +11,9 @@
   ],
   "host_permissions": [
     "<all_urls>",
+    "https://checksource-ai.vercel.app/*",
+    "https://www.checksource.ai/*",
+    "https://checksource.ai/*",
     "https://api-inference.huggingface.co/*",
     "https://router.huggingface.co/*"
   ],
@@ -42,7 +45,7 @@
   },
   "web_accessible_resources": [
     {
-      "resources": ["icons/*"],
+      "resources": ["icons/*", "welcome.html", "welcome.css"],
       "matches": ["<all_urls>"]
     }
   ]

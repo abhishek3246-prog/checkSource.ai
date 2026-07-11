@@ -2,8 +2,14 @@
   "$schema": "https://openapi.vercel.sh/vercel.json",
   "framework": null,
   "installCommand": "echo skip",
-  "buildCommand": "rm -rf public && mkdir -p public && cp -R website/. public/",
+  "buildCommand": "rm -rf public && mkdir -p public && cp -R website/. public/ && rm -rf public/api",
   "outputDirectory": "public",
   "cleanUrls": true,
-  "trailingSlash": false
+  "trailingSlash": false,
+  "functions": {
+    "api/classify.js": {
+      "memory": 1024,
+      "maxDuration": 30
+    }
+  }
 }

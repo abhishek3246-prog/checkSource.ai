@@ -1,0 +1,284 @@
+/* checkSource.ai — fixed overlays only. Never restyle page images. */
+
+#checksource-host {
+  all: initial;
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 0;
+  height: 0;
+  overflow: visible;
+  z-index: 2147483647;
+  font-family: "SF Pro Text", "Segoe UI", system-ui, sans-serif;
+  pointer-events: none;
+}
+
+#checksource-host * {
+  box-sizing: border-box;
+  font-family: inherit;
+}
+
+#checksource-host .cs-badge,
+#checksource-host .cs-card,
+#checksource-host .cs-sel-btn,
+#checksource-host button,
+#checksource-host a {
+  pointer-events: auto;
+}
+
+.cs-badge {
+  padding: 5px 8px;
+  border-radius: 4px;
+  font-size: 11px;
+  font-weight: 700;
+  color: #fff;
+  background: #222;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.45);
+  cursor: pointer;
+  white-space: nowrap;
+  line-height: 1;
+}
+
+.cs-badge.is-ai {
+  background: linear-gradient(135deg, #c62828, #e53935);
+}
+
+.cs-badge.is-real {
+  background: linear-gradient(135deg, #1b5e20, #2e7d32);
+}
+
+.cs-badge.is-uncertain {
+  background: linear-gradient(135deg, #e65100, #f57c00);
+}
+
+.cs-badge.is-error {
+  background: #546e7a;
+}
+
+.cs-card {
+  width: min(360px, calc(100vw - 24px));
+  max-height: min(70vh, 560px);
+  overflow: auto;
+  padding: 14px 14px 12px;
+  border-radius: 12px;
+  background: #0a0a0a;
+  color: #f2f2f2;
+  border: 1px solid #2a2a2a;
+  box-shadow: 0 16px 48px rgba(0, 0, 0, 0.55);
+}
+
+.cs-card-close {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  width: 28px;
+  height: 28px;
+  border: none;
+  border-radius: 6px;
+  background: #1a1a1a;
+  color: #aaa;
+  font-size: 18px;
+  cursor: pointer;
+  line-height: 1;
+}
+
+.cs-card {
+  position: relative;
+}
+
+.cs-card-close:hover {
+  color: #fff;
+  background: #333;
+}
+
+.cs-card-body {
+  padding-right: 18px;
+}
+
+.cs-sel-btn {
+  padding: 7px 12px;
+  border-radius: 8px;
+  border: 1px solid rgba(0, 229, 192, 0.5);
+  background: rgba(0, 0, 0, 0.92);
+  color: #00e5c0;
+  font-size: 12px;
+  font-weight: 700;
+  cursor: pointer;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.4);
+}
+
+.cs-sel-btn:hover {
+  background: #00e5c0;
+  color: #00140f;
+}
+
+/* report */
+.cs-report {
+  color: #f2f2f2;
+  font-size: 12px;
+}
+
+.cs-head {
+  display: flex;
+  justify-content: space-between;
+  gap: 8px;
+  margin-bottom: 6px;
+  padding-right: 20px;
+}
+
+.cs-brand {
+  color: #00e5c0;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.cs-platform {
+  color: #888;
+  font-size: 11px;
+}
+
+.cs-verdict {
+  font-size: 13px;
+  font-weight: 650;
+  line-height: 1.35;
+  margin-bottom: 10px;
+}
+
+.cs-meter {
+  height: 5px;
+  border-radius: 99px;
+  background: #1a1a1a;
+  overflow: hidden;
+  margin-bottom: 10px;
+}
+
+.cs-meter-fill {
+  height: 100%;
+  background: linear-gradient(90deg, #2e7d32, #f57c00, #e53935);
+}
+
+.cs-meter-fill.cs-pulse {
+  animation: cs-pulse 1s ease-in-out infinite;
+}
+
+@keyframes cs-pulse {
+  0%,
+  100% {
+    opacity: 0.45;
+  }
+  50% {
+    opacity: 1;
+  }
+}
+
+.cs-rows {
+  display: grid;
+  gap: 6px;
+  margin-bottom: 8px;
+}
+
+.cs-row {
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+  padding: 7px 8px;
+  border-radius: 7px;
+  background: #121212;
+  border: 1px solid #1c1c1c;
+}
+
+.cs-k {
+  color: #9a9a9a;
+}
+
+.cs-v {
+  font-weight: 700;
+  text-align: right;
+}
+
+.cs-v.cs-hot {
+  color: #ff6b6b;
+}
+.cs-v.cs-warm {
+  color: #ffb74d;
+}
+.cs-v.cs-cool {
+  color: #69f0ae;
+}
+
+.cs-section {
+  margin-top: 10px;
+}
+
+.cs-section-title {
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: #00e5c0;
+  margin-bottom: 6px;
+}
+
+.cs-reasons {
+  margin: 0;
+  padding-left: 16px;
+  color: #d0d0d0;
+  line-height: 1.45;
+}
+
+.cs-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.cs-link {
+  display: inline-block;
+  padding: 5px 8px;
+  border-radius: 6px;
+  background: #151515;
+  border: 1px solid #2a2a2a;
+  color: #00e5c0 !important;
+  text-decoration: none !important;
+  font-size: 11px;
+  font-weight: 600;
+}
+
+.cs-note,
+.cs-disclaimer {
+  margin: 8px 0 0;
+  color: #777;
+  font-size: 11px;
+  line-height: 1.4;
+}
+
+.cs-quote {
+  margin: 0 0 10px;
+  padding: 8px 10px;
+  border-left: 2px solid #00e5c0;
+  background: #121212;
+  color: #ddd;
+  font-style: italic;
+  line-height: 1.4;
+  max-height: 96px;
+  overflow: auto;
+}
+
+.cs-risk-uncertain .cs-verdict {
+  color: #ffb74d;
+}
+
+.cs-risk-critical .cs-verdict,
+.cs-risk-elevated .cs-verdict {
+  color: #ffb74d;
+}
+
+.cs-risk-low .cs-verdict {
+  color: #69f0ae;
+}
+
+.cs-pending .cs-verdict {
+  color: #00e5c0;
+}

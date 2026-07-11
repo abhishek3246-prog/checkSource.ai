@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>checkSource.ai — Know what’s real</title>
+    <meta
+      name="description"
+      content="Free Chrome extension that checks images and text as you browse — AI probability, edits, reverse search, and clear reasoning."
+    />
+    <link rel="icon" href="assets/icon48.png" type="image/png" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700&family=Syne:wght@600;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div class="noise" aria-hidden="true"></div>
+
+    <header class="nav">
+      <a class="nav-brand" href="#top">
+        <img src="assets/icon48.png" alt="" width="32" height="32" />
+        <span>checkSource.ai</span>
+      </a>
+      <nav class="nav-links">
+        <a href="#how">How it works</a>
+        <a href="#features">Features</a>
+        <a href="#download" class="nav-cta">Download</a>
+      </nav>
+    </header>
+
+    <main id="top">
+      <section class="hero">
+        <div class="hero-copy">
+          <p class="eyebrow">Free Chrome extension</p>
+          <h1 class="brand-lockup">checkSource.ai</h1>
+          <p class="lede">
+            Hover any image online. See whether it looks original or AI-made — with clear signals you can act on.
+          </p>
+          <div class="cta-row">
+            <a class="btn primary" href="download/checkSource.ai-extension.zip" download
+              >Download for Chrome</a
+            >
+            <a class="btn ghost" href="#install">Install guide</a>
+          </div>
+          <p class="fine">Works on news sites, social feeds, and the open web. Free for everyone.</p>
+        </div>
+        <div class="hero-visual" aria-hidden="true">
+          <div class="mock-card">
+            <div class="mock-head">
+              <span>checkSource.ai</span>
+              <span class="mock-site">any website</span>
+            </div>
+            <div class="mock-verdict">Likely original photograph</div>
+            <div class="mock-meter"><i style="width: 12%"></i></div>
+            <ul class="mock-rows">
+              <li><span>AI Probability</span><strong>12%</strong></li>
+              <li><span>Edited</span><strong>Unknown</strong></li>
+              <li><span>Deepfake</span><strong>Low</strong></li>
+              <li><span>Reverse search</span><strong>Ready</strong></li>
+              <li><span>Source credibility</span><strong>High (site)</strong></li>
+            </ul>
+            <p class="mock-note">Reasoning · metadata · reverse search links</p>
+          </div>
+        </div>
+      </section>
+
+      <section id="how" class="section">
+        <h2>How it works</h2>
+        <p class="section-lede">Three steps. No account required to install.</p>
+        <ol class="steps">
+          <li>
+            <strong>Install</strong>
+            <span>Download the extension and load it in Chrome in under a minute.</span>
+          </li>
+          <li>
+            <strong>Browse</strong>
+            <span>Open any site with images — news, social, blogs, search results.</span>
+          </li>
+          <li>
+            <strong>Check</strong>
+            <span>Hover an image for a full report, or select text and tap Check text.</span>
+          </li>
+        </ol>
+      </section>
+
+      <section id="features" class="section">
+        <h2>What you get</h2>
+        <p class="section-lede">More than a yes/no label — a practical authenticity report.</p>
+        <div class="feature-grid">
+          <article>
+            <h3>AI probability</h3>
+            <p>A clear score for how likely an image looks synthetic versus photographic.</p>
+          </article>
+          <article>
+            <h3>Edit &amp; metadata signals</h3>
+            <p>Hints when camera data is missing, editing software tags appear, or credentials are absent.</p>
+          </article>
+          <article>
+            <h3>Reverse image search</h3>
+            <p>One-click links to Lens, TinEye, Yandex, and Bing to find earlier copies.</p>
+          </article>
+          <article>
+            <h3>Text selection checks</h3>
+            <p>Highlight a claim on any page and open quick verification searches.</p>
+          </article>
+          <article>
+            <h3>Doesn’t break pages</h3>
+            <p>Floating overlays only — your site’s images keep loading normally.</p>
+          </article>
+          <article>
+            <h3>Private by design</h3>
+            <p>You control the extension on your machine. No ads. No tracking pixels from us.</p>
+          </article>
+        </div>
+      </section>
+
+      <section id="download" class="section download">
+        <h2>Download free</h2>
+        <p class="section-lede">
+          Get checkSource.ai for Chrome on any computer. Worldwide, free forever for this release.
+        </p>
+        <a class="btn primary large" href="download/checkSource.ai-extension.zip" download
+          >Download extension (.zip)</a
+        >
+        <p class="fine">Compatible with Google Chrome and other Chromium browsers.</p>
+      </section>
+
+      <section id="install" class="section install">
+        <h2>Install in Chrome</h2>
+        <ol class="install-steps">
+          <li>Download and unzip <code>checkSource.ai-extension.zip</code>.</li>
+          <li>Open <code>chrome://extensions</code> in Chrome.</li>
+          <li>Turn on <strong>Developer mode</strong> (top right).</li>
+          <li>Click <strong>Load unpacked</strong> and select the unzipped folder.</li>
+          <li>Pin checkSource.ai from the puzzle icon — then hover any image to start.</li>
+        </ol>
+        <p class="fine">
+          Chrome Web Store listing coming soon. Until then, Load unpacked is the free public install path.
+        </p>
+      </section>
+
+      <section class="section honesty">
+        <h2>Be clear with others</h2>
+        <p>
+          checkSource.ai gives strong signals — probability, metadata, and reverse search — not courtroom proof.
+          Always combine the report with judgment and primary sources.
+        </p>
+      </section>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-brand">
+        <img src="assets/icon48.png" alt="" width="28" height="28" />
+        <span>checkSource.ai</span>
+      </div>
+      <p class="credit">Developed by Abhi</p>
+      <p class="copy">© <span id="y"></span> checkSource.ai · Free for the world</p>
+    </footer>
+
+    <script>
+      document.getElementById("y").textContent = new Date().getFullYear();
+    </script>
+  </body>
+</html>

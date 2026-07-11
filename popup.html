@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>checkSource.ai</title>
+    <link rel="stylesheet" href="popup.css" />
+  </head>
+  <body>
+    <header class="header">
+      <img class="logo" src="icons/icon48.png" alt="" width="36" height="36" />
+      <div>
+        <h1>checkSource.ai</h1>
+        <p class="tagline">Hover images · select text</p>
+      </div>
+    </header>
+
+    <section class="card">
+      <label class="toggle">
+        <input type="checkbox" id="autoDetect" checked />
+        <span>Auto-scan images on hover</span>
+      </label>
+      <p class="hint">Shows a report card next to the image. Page images are never modified.</p>
+    </section>
+
+    <section class="card">
+      <label class="field-label" for="hfToken">Hugging Face token</label>
+      <div class="row">
+        <input
+          type="password"
+          id="hfToken"
+          placeholder="hf_…"
+          autocomplete="off"
+          spellcheck="false"
+        />
+        <button type="button" id="saveToken" class="btn primary">Save</button>
+      </div>
+      <p class="hint">
+        <a href="https://huggingface.co/settings/tokens" target="_blank" rel="noreferrer"
+          >Get a token</a
+        >
+      </p>
+      <p id="tokenStatus" class="status" aria-live="polite"></p>
+    </section>
+
+    <section class="card">
+      <label class="field-label" for="imageUrl">Analyze image URL</label>
+      <div class="row">
+        <input type="url" id="imageUrl" placeholder="https://…" spellcheck="false" />
+        <button type="button" id="analyzeBtn" class="btn primary">Analyze</button>
+      </div>
+      <div id="result" class="result-host" hidden></div>
+    </section>
+
+    <footer class="footer">
+      Tip: select any text on a page → click <strong>Check text</strong>
+    </footer>
+
+    <script src="lib/report.js"></script>
+    <script src="popup.js"></script>
+  </body>
+</html>

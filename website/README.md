@@ -1,17 +1,27 @@
-# checkSource.ai website
+# Website → Vercel
 
-Static homepage for https://www.checksource.ai
+Static homepage for **https://www.checksource.ai**
 
-## Deploy
+## Deploy on Vercel (GitHub connected)
 
-### GitHub Pages
-1. Repo Settings → Pages
-2. Source: Deploy from a branch
-3. Folder: `/website` (or use a GitHub Action to publish `website/`)
-4. Point domain `www.checksource.ai` DNS (CNAME) to GitHub Pages
+1. Open [vercel.com/dream-coders1](https://vercel.com/dream-coders1)
+2. **Add New… → Project**
+3. Import `abhishek3246-prog/checkSource.ai`
+4. Configure:
+   - **Framework Preset:** Other
+   - **Root Directory:** `website`
+   - **Build Command:** leave empty
+   - **Output Directory:** leave empty (or `.`)
+5. Deploy
 
-### Cloudflare Pages / Netlify / Vercel
-- Build: none (static)
-- Publish directory: `website`
+### Custom domain
 
-DNS: add CNAME `www` → your host. Apex `checksource.ai` via ALIAS/ANAME or redirect to `www`.
+1. Project → **Settings → Domains**
+2. Add `www.checksource.ai` and `checksource.ai`
+3. At your DNS provider:
+   - `www` → CNAME to `cname.vercel-dns.com`
+   - Apex `@` → A record `76.76.21.21` (or follow Vercel’s exact DNS panel)
+
+## Local preview
+
+Open `index.html` or run any static server from this folder.

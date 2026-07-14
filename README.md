@@ -3,7 +3,7 @@
 Chrome extension that checks whether images (and selected text) look original or AI-made — as you browse.
 
 **Website:** [https://www.checksource.ai](https://www.checksource.ai)  
-**Developer:** Abhi
+**Developers:** Abhi & Sathwika
 
 ## Install (free)
 
@@ -42,4 +42,4 @@ This release is distributed free via direct download (Load unpacked). A Chrome W
 
 ## License
 
-Copyright © Abhi — checkSource.ai. Free for worldwide use of this extension release.
+Copyright © Abhi & Sathwika — checkSource.ai. Free for worldwide use of this extension release.

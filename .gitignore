@@ -4,3 +4,5 @@
 .env.*
 node_modules/
 .chrome-extension-key*
+.vercel
+.env*
